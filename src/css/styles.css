@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  animation: fadeIn 1s ease-in-out;
+  overflow-x: hidden;
+}
+
+header { 
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: rgb(0, 0, 0);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  font-size: 25px;
+  font-family: "Josefin Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+nav a {
+  margin: 0 15px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgb(255, 255, 255);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+main {
+  padding: 4px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.welcome {
+  opacity: 0;
+  animation: fadeInText 1s ease-in-out forwards;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@keyframes fadeInText {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #000000;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #764ba2;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #764ba2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #5b3c9d;
+}
+
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* ROADMAP STYLES */
+.map-background {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: 400px;
+  margin: 60px auto 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeInRoadmap 1s ease-in-out 1s forwards;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@keyframes fadeInRoadmap {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.roadmap-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.roadmap-line path {
+  fill: none;
+  stroke: #00f260;
+  stroke-width: 4;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 8s linear infinite;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+
+.node {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: #ffffffcc;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #333;
+  z-index: 2;
+  animation: glow 1s ease-in-out forwards;
+  box-shadow: 0 0 0 transparent;
+  opacity: 0;
+  filter: blur(3px);
+  transition: transform 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+}
+
+.node:hover {
+  transform: scale(1.1);
+  background-color: #f0f0f0;
+}
+
+.node.active {
+  filter: blur(0);
+  transform: scale(1.2);
+  background-color: #00f261c0;
+  opacity: 1;
+  animation: glow 1s ease-in-out forwards, float 3s ease-in-out infinite;
+}
+
+/* Efeito de glow */
+@keyframes glow {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 transparent;
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 12px #00f200;
+  }
+}
+
+/* Efeito de flutuação contínua */
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+/* Posições dos nodes */
+.node5  { top: 160px;  left: clamp(20px, 4vw, 60px);  animation-delay: 0.4s; }
+.node6  { top: 60px;   left: clamp(140px, 12vw, 200px); animation-delay: 0.8s; }
+.node7  { top: 200px;  left: clamp(280px, 22vw, 300px); animation-delay: 1.2s; }
+.node8  { top: 100px;  left: clamp(370px, 30vw, 400px); animation-delay: 1.6s; }
+.node9  { top: 220px;  left: clamp(500px, 40vw, 520px); animation-delay: 2s; }
+.node10 { top: 60px;   left: clamp(600px, 46vw, 620px); animation-delay: 2.4s; }
+.node11 { top: 200px;  left: clamp(730px, 56vw, 740px); animation-delay: 2.8s; }
+.node12 { top: 75px;   left: clamp(850px, 65vw, 860px); animation-delay: 3.2s; }
+.node13 { top: 220px;  left: clamp(970px, 74vw, 980px); animation-delay: 3.6s; }
+.node14 { top: 100px;  left: clamp(1070px, 80vw, 1080px); animation-delay: 4s; }
+
+/*Roadmap.html*/
+.roadmap-area {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.node-box {
+  background-color: #764ba2;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  animation: popIn 0.4s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .node {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .roadmap-line {
+    height: 300px;
+  }
+}
