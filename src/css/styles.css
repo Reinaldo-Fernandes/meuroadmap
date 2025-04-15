@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +20,7 @@ body {
   overflow-x: hidden;
 }
 
-header { 
+header {
   background: linear-gradient(90deg, #667eea, #764ba2);
   color: rgb(0, 0, 0);
   padding: 15px 40px;
@@ -30,12 +32,45 @@ header {
   top: 0;
   width: 100%;
   z-index: 1000;
-  font-size: 25px;
   font-family: "Josefin Slab", serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
 }
+
+.header-left{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.site-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  padding-left: 10px;
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 nav a {
   margin: 0 15px;
@@ -136,11 +171,27 @@ footer {
   background: #222;
   color: white;
   text-align: center;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
   padding: 10px;
   position: fixed;
   width: 100%;
   bottom: 0;
 }
+ 
 
 /* ROADMAP STYLES */
 .map-background {
@@ -149,7 +200,7 @@ footer {
   max-width: 1300px;
   height: 400px;
   margin: 60px auto 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(10, 9, 9);
   border-radius: 16px;
   padding: 20px;
   overflow: hidden;
@@ -283,4 +334,52 @@ footer {
   .roadmap-line {
     height: 300px;
   }
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: black;
+  padding: 20px;
+  animation: fadeInLogo 2s ease forwards;
+  opacity: 0;
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.logo-symbol {
+  font-size: 32px;
+  animation: rotateSymbol 4s linear infinite;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.initials {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.fullname {
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* ANIMAÇÕES */
+@keyframes rotateSymbol {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInLogo {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
