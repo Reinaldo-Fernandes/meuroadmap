@@ -4,7 +4,7 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
-//Roadmap.html
+// Função para gerar o roadmap baseado no input
 function gerarRoadmap() {
   const input = document.getElementById("roadmapInput").value.trim();
   const area = document.getElementById("roadmapArea");
@@ -26,20 +26,24 @@ function gerarRoadmap() {
   const chave = Object.keys(ideias).find(chave => input.toLowerCase().includes(chave));
   const roadmap = chave ? ideias[chave] : ["Etapa 1", "Etapa 2", "Etapa 3"];
 
+  // Adiciona as etapas ao DOM
   roadmap.forEach(etapa => {
     const node = document.createElement("div");
     node.classList.add("node-box");
     node.innerText = etapa;
     area.appendChild(node);
   });
+
+  // Após gerar o roadmap, perguntar o nome e salvar
+  const nome = prompt("Digite um nome para salvar seu roadmap:");
+  if (nome) salvarRoadmap(nome, roadmap);
 }
 
-//Backgournd Roudmap
+// Função para animar o background do roadmap
 document.addEventListener("DOMContentLoaded", () => {
   const nodes = document.querySelectorAll('.node');
   const linePath = document.querySelector('.roadmap-line path');
   const lineLength = linePath.getTotalLength();
-  let currentNode = 0; // Controle do node atual
 
   // Função para ativar o node
   function activateNode(node) {
@@ -53,14 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função para animar a linha e os nodes
   function animateLineAndNodes() {
-    // Animação da linha passando por cada ponto
     linePath.style.strokeDasharray = lineLength;
     linePath.style.strokeDashoffset = lineLength;
-    linePath.animate([
+    linePath.animate([ 
       { strokeDashoffset: lineLength },
       { strokeDashoffset: 0 }
     ], {
-      duration: 8000, // Duração da animação da linha
+      duration: 8000,
       easing: 'linear',
       fill: 'forwards'
     });
@@ -69,20 +72,50 @@ document.addEventListener("DOMContentLoaded", () => {
     nodes.forEach((node, index) => {
       setTimeout(() => {
         activateNode(node);
-        // Aqui você pode adicionar um som ou outro efeito
-        // Exemplo de som (necessita de um arquivo de áudio ou URL de som):
-        // new Audio('path/to/sound.mp3').play();
-      }, (index + 1) * 750); // Sincroniza o tempo com a linha, ajustando o atraso
+      }, (index + 1) * 750);
     });
 
-    // Desativar nodes após um certo tempo
     setTimeout(() => {
       nodes.forEach(deactivateNode);
-    }, 8500); // Tempo após a linha completar a animação
-    
-    setInterval(animateLineAndNodes, 8500); // Reinicia a animação a cada ciclo completo
+    }, 8500);
+
+    setInterval(animateLineAndNodes, 8500);
   }
 
-  // Inicializa a animação assim que a página carrega
   animateLineAndNodes();
 });
+
+// Função para adicionar uma nova etapa ao roadmap manualmente
+function adicionarEtapa() {
+  const input = document.getElementById("manualStep");
+  const etapa = input.value.trim();
+  const area = document.getElementById("manualRoadmapArea");
+
+  if (!etapa) {
+    alert("Digite uma etapa antes de adicionar!");
+    return;
+  }
+
+  const node = document.createElement("div");
+  node.classList.add("node-box");
+  node.innerText = etapa;
+  area.appendChild(node);
+
+  input.value = "";
+  input.focus();
+}
+
+// Função para salvar o roadmap no localStorage
+function salvarRoadmap(nome, etapas) {
+  const roadmaps = JSON.parse(localStorage.getItem("roadmaps")) || [];
+
+  const novo = {
+    nome: nome,
+    etapas: etapas,
+    criadoEm: new Date().toISOString()
+  };
+
+  roadmaps.push(novo);
+  localStorage.setItem("roadmaps", JSON.stringify(roadmaps));
+  console.log("Roadmap salvo com sucesso!"); // Substitui o alert por um log para evitar pop-ups excessivos
+}

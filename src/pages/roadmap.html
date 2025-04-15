@@ -3,10 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Criar Roadmap</title>
-  <link rel="stylesheet" href="/src/css/styles.css" />
+  <title>Meu RoadMap</title>
+  <!-- Caminho corrigido para o CSS -->
+  <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <div class="logo">
+        <div class="logo-symbol">⧉</div>
+        <div class="logo-text">
+          <span class="initials">RF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="site-title">Meu RoadMap</div>
+    </div>
+
+    <div class="header-right">
+      <nav>
+        <a href="./index.html">Inicio</a>
+        <a href="dashboard.html">Dashboard</a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
   <main class="container">
     <h2>Criar novo Roadmap</h2>
 
@@ -14,9 +40,18 @@
     <button onclick="gerarRoadmap()">Gerar Roadmap</button>
 
     <div id="roadmapArea" class="roadmap-area"></div>
+
+    <hr style="margin: 30px 0;" />
+
+    <h3>Criar Roadmap Manualmente</h3>
+    <input type="text" id="manualStep" placeholder="Digite uma etapa (ex: Wireframe)" />
+    <button onclick="adicionarEtapa()">Adicionar Etapa</button>
+
+    <div id="manualRoadmapArea" class="roadmap-area"></div>
   </main>
 
-  <script src="/src/js/script.js"></script>
+  <!-- SCRIPTS -->
+  <!-- Caminho corrigido para o JS -->
+  <script src="../js/script.js"></script>
 </body>
 </html>
-s
