@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meu RoadMap</title>
-  <!-- Caminho corrigido para o CSS -->
-  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/roudmap.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <!-- HEADER -->
@@ -25,33 +25,47 @@
 
     <div class="header-right">
       <nav>
-        <a href="./index.html">Inicio</a>
+        <a href="/index.html">Início</a>
         <a href="dashboard.html">Dashboard</a>
-
       </nav>
     </div>
   </header>
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="container">
+    <!-- Título principal -->
     <h2>Criar novo Roadmap</h2>
 
-    <input type="text" id="roadmapInput" placeholder="Ex: Estudar Front-End" />
-    <button onclick="gerarRoadmap()">Gerar Roadmap</button>
+    <!-- Input de Roadmap automático -->
+    <div class="input-section">
+      <input type="text" id="roadmapInput" placeholder="Ex: Estudar Front-End" />
+      <input type="text" id="roadmapCategoria" placeholder="Categoria (ex: Estudos, Trabalho)" />
+      <button onclick="gerarRoadmap()"><i class="fas fa-magic"></i> Gerar Roadmap</button>
+    </div>
 
+    <!-- Área para mostrar o roadmap gerado -->
     <div id="roadmapArea" class="roadmap-area"></div>
 
     <hr style="margin: 30px 0;" />
 
+    <!-- Título para criação manual -->
     <h3>Criar Roadmap Manualmente</h3>
-    <input type="text" id="manualStep" placeholder="Digite uma etapa (ex: Wireframe)" />
-    <button onclick="adicionarEtapa()">Adicionar Etapa</button>
+    
+    
+    <!-- Input de Etapas manuais -->
+    <div class="input-section">
+      <input type="text" id="manualStep" placeholder="Digite uma etapa (ex: Wireframe)" />
+      <button onclick="adicionarEtapa()"><i class="fas fa-plus"></i> Adicionar Etapa</button>
+    </div>
 
+    <div style="margin-top: 20px;">
+      <button onclick="salvarRoadmapManual()">💾 Salvar Roadmap Manual</button>
+    </div>
+    <!-- Área para mostrar as etapas manuais -->
     <div id="manualRoadmapArea" class="roadmap-area"></div>
   </main>
 
   <!-- SCRIPTS -->
-  <!-- Caminho corrigido para o JS -->
   <script src="../js/script.js"></script>
 </body>
 </html>

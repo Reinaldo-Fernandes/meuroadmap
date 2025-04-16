@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Meu RoadMap</title>
-  <link rel="stylesheet" href="/src/css/styles.css" />
+  <link rel="stylesheet" href="/src/css/roudmap.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <!-- HEADER -->
@@ -31,22 +32,27 @@
   </header>
 
   <!-- CONTEÚDO -->
-  <main class="container">
+  <main class="dashboard-container">
     <h2>Seus Roadmaps</h2>
     <p style="margin-bottom: 20px;">Aqui você pode visualizar os roadmaps criados ou começar um novo!</p>
 
-    <button onclick="window.location.href='/src/pages/roadmap.html'">+ Criar novo Roadmap</button>
-
-    <div id="roadmapLista" class="roadmap-area" style="margin-top: 30px;">
-      <!-- Roadmaps simulados por enquanto -->
-      <div class="node-box">Marketing Digital</div>
-      <div class="node-box">Estudo para Enem</div>
-      <div class="node-box">Projeto de Startup</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar roadmap por nome..." />
     </div>
+
+    <div class="filter-bar" style="margin: 20px 0;">
+      <label for="categoriaFiltro">Filtrar por categoria:</label>
+      <select id="categoriaFiltro">
+        <option value="">Todas</option>
+      </select>
+    </div>
+
+    <button style="margin-top: 10px;" onclick="window.location.href='/src/pages/roadmap.html'">+ Criar novo Roadmap</button>
+
+    <div id="roadmapList" class="roadmap-area" style="margin-top: 30px;"></div>
   </main>
 
   <!-- SCRIPTS -->
- 
-  <script src="./src/js/script.js"></script>
+  <script src="./src/js/dashboard.js"></script>
 </body>
 </html>
