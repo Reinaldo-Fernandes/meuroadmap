@@ -144,3 +144,34 @@ function carregarRoadmaps(filtroNome = "", filtroCategoria = "") {
     if (categoriaFiltro) categoriaFiltro.addEventListener("change", atualizarFiltro);
   });
   
+  //Exibir Detalhes 
+  function exibirDetalhes(roadmap) {
+    const modal = document.getElementById("modalVisualizar");
+    const titulo = document.getElementById("modalTitulo");
+    const categoria = document.getElementById("modalCategoria");
+    const etapasContainer = document.getElementById("modalEtapas");
+    const barra = document.querySelector("#modalProgresso .preenchimento");
+  
+    titulo.textContent = roadmap.nome;
+    categoria.textContent = `Categoria: ${roadmap.categoria || "Sem categoria"}`;
+    etapasContainer.innerHTML = "";
+  
+    const progresso = getProgresso(roadmap.nome);
+    const total = roadmap.etapas.length;
+    const concluidas = roadmap.etapas.filter(e => progresso.includes(e)).length;
+    const percentual = Math.round((concluidas / total) * 100);
+    barra.style.width = `${percentual}%`;
+  
+    roadmap.etapas.forEach(etapa => {
+      const node = criarNode(etapa, roadmap.nome); // reutiliza com checkbox
+      etapasContainer.appendChild(node);
+    });
+  
+    modal.classList.remove("hidden");
+  }
+  
+  function fecharModal() {
+    const modal = document.getElementById("modalVisualizar");
+    modal.classList.add("hidden");
+  }
+  

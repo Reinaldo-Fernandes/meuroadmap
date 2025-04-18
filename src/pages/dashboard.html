@@ -52,6 +52,16 @@
     <div id="roadmapList" class="roadmap-area" style="margin-top: 30px;"></div>
   </main>
 
+  <div id="modalVisualizar" class="modal-overlay hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModal()">×</span>
+      <h2 id="modalTitulo"></h2>
+      <p class="modal-categoria" id="modalCategoria"></p>
+      <div id="modalProgresso" class="progresso-barra"><div class="preenchimento"></div></div>
+      <div id="modalEtapas" class="modal-etapas"></div>
+    </div>
+  </div>
+  
   <!-- SCRIPTS -->
   <script src="./src/js/dashboard.js"></script>
 </body>

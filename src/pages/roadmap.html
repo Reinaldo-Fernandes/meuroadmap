@@ -33,6 +33,11 @@
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="container">
+
+    <div class="progresso-barra">
+      <div class="preenchimento" style="width: 60%;"></div>
+    </div>
+    
     <!-- Título principal -->
     <h2>Criar novo Roadmap</h2>
 
@@ -42,16 +47,15 @@
       <input type="text" id="roadmapCategoria" placeholder="Categoria (ex: Estudos, Trabalho)" />
       <button onclick="gerarRoadmap()"><i class="fas fa-magic"></i> Gerar Roadmap</button>
     </div>
-
-    <!-- Área para mostrar o roadmap gerado -->
+    
+    <!-- Área onde o roadmap gerado será exibido -->
     <div id="roadmapArea" class="roadmap-area"></div>
-
+    
     <hr style="margin: 30px 0;" />
 
     <!-- Título para criação manual -->
     <h3>Criar Roadmap Manualmente</h3>
-    
-    
+
     <!-- Input de Etapas manuais -->
     <div class="input-section">
       <input type="text" id="manualStep" placeholder="Digite uma etapa (ex: Wireframe)" />
@@ -61,11 +65,13 @@
     <div style="margin-top: 20px;">
       <button onclick="salvarRoadmapManual()">💾 Salvar Roadmap Manual</button>
     </div>
+
     <!-- Área para mostrar as etapas manuais -->
     <div id="manualRoadmapArea" class="roadmap-area"></div>
   </main>
 
   <!-- SCRIPTS -->
-  <script src="../js/script.js"></script>
+   <script src="/src/js/roudmap.js"></script>
+
 </body>
 </html>

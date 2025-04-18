@@ -1,3 +1,98 @@
+// Array para armazenar as etapas manuais
+let etapasManuais = [];
+
+// Função para gerar um roadmap automático
+function gerarRoadmap() {
+  console.log("Função gerarRoadmap chamada");  // Para verificar se a função está sendo chamada
+
+  const nome = document.getElementById("roadmapInput").value;
+  const categoria = document.getElementById("roadmapCategoria").value;
+
+  if (!nome || !categoria) {
+    alert("Por favor, insira o nome e a categoria do roadmap.");
+    return;
+  }
+
+  // Criar o roadmap
+  const roadmap = {
+    nome: nome,
+    categoria: categoria,
+    etapas: ["Pesquisa", "Planejamento", "Execução", "Revisão"], // Exemplo de etapas
+    criadoEm: new Date().toISOString()
+  };
+
+  console.log("Roadmap gerado:", roadmap);  // Verifica o conteúdo do roadmap
+
+  // Exibir o roadmap na área correspondente
+  const roadmapArea = document.getElementById("roadmapArea");
+  roadmapArea.innerHTML = `
+    <h4>${roadmap.nome}</h4>
+    <p><strong>Categoria:</strong> ${roadmap.categoria}</p>
+    <ul>
+      ${roadmap.etapas.map(etapa => `<li>${etapa}</li>`).join("")}
+    </ul>
+  `;
+
+  // Salvar o roadmap no localStorage
+  const roadmaps = JSON.parse(localStorage.getItem("roadmaps")) || [];
+  roadmaps.push(roadmap);
+  localStorage.setItem("roadmaps", JSON.stringify(roadmaps));
+
+  alert("Roadmap gerado com sucesso!");
+}
+
+// Função para adicionar etapas manuais
+function adicionarEtapa() {
+  const etapaInput = document.getElementById("manualStep");
+  const etapa = etapaInput.value.trim();
+
+  if (!etapa) {
+    alert("Por favor, insira uma etapa.");
+    return;
+  }
+
+  etapasManuais.push(etapa);
+  etapaInput.value = ""; // Limpa o campo de entrada
+
+  // Exibir as etapas manuais na área correspondente
+  const manualRoadmapArea = document.getElementById("manualRoadmapArea");
+  manualRoadmapArea.innerHTML = `
+    <h4>Etapas:</h4>
+    <ul>
+      ${etapasManuais.map(etapa => `<li>${etapa}</li>`).join("")}
+    </ul>
+  `;
+}
+
+// Função para salvar o roadmap manual
+function salvarRoadmapManual() {
+  const nome = document.getElementById("roadmapInput").value;
+  const categoria = document.getElementById("roadmapCategoria").value;
+
+  if (!nome || etapasManuais.length === 0 || !categoria) {
+    alert("Por favor, insira o nome, a categoria e as etapas do roadmap.");
+    return;
+  }
+
+  const roadmapManual = {
+    nome: nome,
+    categoria: categoria,
+    etapas: etapasManuais,
+    criadoEm: new Date().toISOString()
+  };
+
+  // Salvar no localStorage
+  const roadmaps = JSON.parse(localStorage.getItem("roadmaps")) || [];
+  roadmaps.push(roadmapManual);
+  localStorage.setItem("roadmaps", JSON.stringify(roadmaps));
+
+  alert("Roadmap manual salvo com sucesso!");
+
+  // Limpar etapas manuais
+  etapasManuais = [];
+  document.getElementById("manualRoadmapArea").innerHTML = "";
+}
+
 // Função para carregar e exibir os roadmaps salvos com filtros
 function carregarRoadmaps(filtroNome = "", filtroCategoria = "") {
   const listaContainer = document.getElementById("roadmapList");
@@ -68,7 +163,6 @@ function excluirRoadmap(index) {
     roadmaps.splice(index, 1);
     localStorage.setItem("roadmaps", JSON.stringify(roadmaps));
     carregarRoadmaps();
-    preencherFiltroCategorias();
   }
 }
 
@@ -94,7 +188,6 @@ function editarRoadmap(index) {
 
   localStorage.setItem("roadmaps", JSON.stringify(roadmaps));
   carregarRoadmaps();
-  preencherFiltroCategorias();
 }
 
 // Exibe os detalhes do roadmap
@@ -102,43 +195,7 @@ function exibirDetalhes(roadmap) {
   alert(`📋 Roadmap: ${roadmap.nome}\nCategoria: ${roadmap.categoria || "-"}\n\nEtapas:\n- ${roadmap.etapas.join("\n- ")}`);
 }
 
-// Preenche as opções de categoria no filtro
-function preencherFiltroCategorias() {
-  const select = document.getElementById("categoriaFiltro");
-  if (!select) return;
-
-  select.innerHTML = "<option value=''>Todas</option>";
-
-  const roadmaps = JSON.parse(localStorage.getItem("roadmaps")) || [];
-  const categorias = [...new Set(roadmaps.map(r => r.categoria || "Sem categoria"))];
-
-  categorias.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    select.appendChild(option);
-  });
-}
-
 // Inicializa filtros e carregamento ao abrir a página
 document.addEventListener("DOMContentLoaded", () => {
-  preencherFiltroCategorias();
   carregarRoadmaps();
-
-  const searchInput = document.getElementById("searchInput");
-  const categoriaFiltro = document.getElementById("categoriaFiltro");
-
-  const atualizarFiltro = () => {
-    const texto = searchInput?.value || "";
-    const cat = categoriaFiltro?.value || "";
-    carregarRoadmaps(texto, cat);
-  };
-
-  if (searchInput) {
-    searchInput.addEventListener("input", atualizarFiltro);
-  }
-
-  if (categoriaFiltro) {
-    categoriaFiltro.addEventListener("change", atualizarFiltro);
-  }
 });
