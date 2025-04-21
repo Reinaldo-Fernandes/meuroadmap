@@ -1,3 +1,14 @@
+:root {
+  --cor-principal: #2575fc;
+  --cor-gradiente: linear-gradient(90deg, #6a11cb, #2575fc);
+  --cor-hover: #1e5bd2;
+  --cor-fundo: #f8f9fa;
+  --cor-texto: #333;
+  --cor-clara: #ffffff;
+  --cor-sucesso: #4caf50;
+  --cor-borda: #ccc;
+}
+
 /* Reset básico */
 * {
   margin: 0;
@@ -7,8 +18,8 @@
 }
 
 body {
-  background: #f8f9fa;
-  color: #333;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
 }
 
 /* HEADER */
@@ -17,7 +28,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  background: var(--cor-gradiente);
   color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -60,7 +71,7 @@ nav a:hover {
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
-  background: white;
+  background: var(--cor-clara);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -70,7 +81,7 @@ nav a:hover {
 .dashboard-container h2,
 .dashboard-container h3 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--cor-texto);
 }
 
 /* INPUTS E BOTÕES */
@@ -84,20 +95,20 @@ nav a:hover {
 input[type="text"] {
   flex: 1 1 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--cor-borda);
   border-radius: 8px;
   transition: border 0.3s;
   min-width: 220px;
 }
 
 input[type="text"]:focus {
-  border-color: #6a11cb;
+  border-color: var(--cor-principal);
   outline: none;
 }
 
 button {
   padding: 10px 20px;
-  background: #2575fc;
+  background: var(--cor-principal);
   color: white;
   border: none;
   border-radius: 8px;
@@ -107,7 +118,22 @@ button {
 }
 
 button:hover {
-  background: #1e5bd2;
+  background: var(--cor-hover);
+}
+
+/* SUGESTÕES DA IA */
+.sugestao-etapa {
+  background-color: #eef5ff;
+  color: #333;
+  border-left: 4px solid var(--cor-principal);
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.hidden {
+  display: none;
 }
 
 /* ROADMAP AREA */
@@ -136,7 +162,7 @@ button:hover {
 
 /* DASHBOARD CARD */
 .roadmap-card {
-  background: #ffffff;
+  background: var(--cor-clara);
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 20px;
@@ -151,7 +177,7 @@ button:hover {
 
 .roadmap-card h3 {
   margin-bottom: 12px;
-  color: #333;
+  color: var(--cor-texto);
 }
 
 .roadmap-card ul {
@@ -172,7 +198,7 @@ button:hover {
 }
 
 .roadmap-actions button {
-  background-color: #2575fc;
+  background-color: var(--cor-principal);
   color: white;
   border: none;
   border-radius: 6px;
@@ -183,20 +209,21 @@ button:hover {
 }
 
 .roadmap-actions button:hover {
-  background-color: #1e5bd2;
+  background-color: var(--cor-hover);
 }
 
+/* BARRA DE BUSCA */
 .search-bar input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--cor-borda);
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.3s;
 }
 
 .search-bar input:focus {
-  border-color: #2575fc;
+  border-color: var(--cor-principal);
   outline: none;
 }
 
@@ -204,7 +231,7 @@ button:hover {
 .roadmap-card .tag {
   display: inline-block;
   background: #e6eeff;
-  color: #2575fc;
+  color: var(--cor-principal);
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
@@ -212,6 +239,7 @@ button:hover {
   font-weight: 500;
 }
 
+/* PROGRESSO */
 .progresso-barra {
   width: 100%;
   height: 10px;
@@ -223,11 +251,11 @@ button:hover {
 
 .progresso-barra .preenchimento {
   height: 100%;
-  background-color: #4caf50;
+  background-color: var(--cor-sucesso);
   transition: width 0.3s ease-in-out;
 }
 
-/*Modal Overlay*/
+/* MODAL */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -242,7 +270,7 @@ button:hover {
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--cor-clara);
   border-radius: 12px;
   padding: 30px;
   width: 90%;
@@ -266,14 +294,31 @@ button:hover {
   margin-bottom: 10px;
 }
 
-.hidden {
-  display: none;
-}
-
 .close-btn {
   position: absolute;
   right: 20px;
   top: 10px;
   font-size: 28px;
   cursor: pointer;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .input-section {
+    flex-direction: column;
+  }
+
+  nav a {
+    margin: 0 10px;
+  }
+
+  .roadmap-actions {
+    flex-direction: column;
+  }
 }

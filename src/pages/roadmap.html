@@ -47,6 +47,9 @@
       <input type="text" id="roadmapCategoria" placeholder="Categoria (ex: Estudos, Trabalho)" />
       <button onclick="gerarRoadmap()"><i class="fas fa-magic"></i> Gerar Roadmap</button>
     </div>
+
+    <!-- Sugestão gerada pela IA -->
+    <div id="sugestaoEtapas" class="sugestao-etapa hidden"></div>
     
     <!-- Área onde o roadmap gerado será exibido -->
     <div id="roadmapArea" class="roadmap-area"></div>
@@ -71,7 +74,6 @@
   </main>
 
   <!-- SCRIPTS -->
-   <script src="/src/js/roudmap.js"></script>
-
+  <script type="module" src="../js/roudmap.js"></script>
 </body>
 </html>
