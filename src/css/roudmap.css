@@ -1,4 +1,5 @@
 :root {
+  /* Cores principais */
   --cor-principal: #2575fc;
   --cor-gradiente: linear-gradient(90deg, #6a11cb, #2575fc);
   --cor-hover: #1e5bd2;
@@ -7,6 +8,9 @@
   --cor-clara: #ffffff;
   --cor-sucesso: #4caf50;
   --cor-borda: #ccc;
+  --primary-color: #008080;
+  --secondary-color: #cccccc;
+  --bg-color: #ffffff;
 }
 
 /* Reset básico */
@@ -321,4 +325,312 @@ button:hover {
   .roadmap-actions {
     flex-direction: column;
   }
+}
+
+/* Templates */
+h2 {
+  margin-top: 3rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+/* === TEMPLATE 1: HORIZONTAL TIMELINE === */
+.roadmap.timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.roadmap.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--secondary-color);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.roadmap.timeline .step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.roadmap.timeline .step-marker {
+  width: 2rem;
+  height: 2rem;
+  background: var(--primary-color);
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  position: relative;
+}
+
+.roadmap.timeline .step-marker::after {
+  content: attr(data-step);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.roadmap.timeline .step-content h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+.roadmap.timeline .step-content p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* === TEMPLATE 2: QUARTER GRID === */
+.roadmap.quarters {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.roadmap.quarters .quarter {
+  background: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.roadmap.quarters .quarter h4 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-color);
+}
+
+/* === TEMPLATE 3: KANBAN STYLE === */
+.roadmap.kanban {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.roadmap.kanban .column {
+  flex: 1;
+  background: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.roadmap.kanban .column h4 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-color);
+}
+
+.roadmap.kanban .task {
+  background: #fff;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+}
+
+/* === TEMPLATE 4: VERTICAL ROADMAP === */
+.roadmap.vertical {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.roadmap.vertical::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--secondary-color);
+}
+
+.roadmap.vertical .step {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.roadmap.vertical .step-marker {
+  position: absolute;
+  left: -0.75rem;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.roadmap.vertical .step-content h4 {
+  margin: 0 0 0.25rem;
+  color: var(--primary-color);
+}
+
+.roadmap.vertical .step-content p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.campo-dica {
+  font-size: 0.8rem;
+  color: #555;
+  background: #f0f7ff;
+  padding: 8px 12px;
+  margin-top: 6px;
+  border-left: 3px solid var(--cor-principal);
+  border-radius: 6px;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+textarea#observacaoEtapa {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 0.95em;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+textarea#observacaoEtapa:focus {
+  border-color: #4a90e2;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.ajudante-ia {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.ajudante-ia i {
+  font-size: 20px;
+  color: #4d0099;
+}
+
+.modal-ajuda {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  width: 300px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 1001;
+}
+
+.modal-ajuda.hidden {
+  display: none;
+}
+
+.modal-content .fechar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/*textera */
+textarea#observacaoEtapa {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 0.95em;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  margin-top: 6px;
+}
+
+textarea#observacaoEtapa:focus {
+  border-color: #4a90e2;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.column {
+  width: 30%;
+  margin: 1%;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  min-height: 200px;
+  float: left;
+  box-sizing: border-box;
+  border: 2px dashed #ddd;
+}
+
+.task {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: move;
+  margin-top: 10px;
+}
+
+.column h4 {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.column:active {
+  border: 2px dashed #4a90e2;
+}
+
+.task:active {
+  border: 2px dashed #4a90e2;
+}
+
+.color-picker {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.color-box {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
 }

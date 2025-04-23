@@ -1,28 +1,3 @@
-import { gerarEtapasPorTema, sugerirProximaEtapa } from './aiHelper.js';
-
-let etapasManuais = [];
-
-// ========== Função para gerar um roadmap automaticamente ==========
-function gerarRoadmap() {
-  const nome = document.getElementById("roadmapInput").value.trim();
-  const categoria = document.getElementById("roadmapCategoria").value.trim();
-
-  if (!nome || !categoria) {
-    alert("Por favor, insira o nome e a categoria do roadmap.");
-    return;
-  }
-
-  const roadmap = {
-    nome,
-    categoria,
-    etapas: gerarEtapasPorTema(nome),
-    criadoEm: new Date().toISOString()
-  };
-
-  exibirRoadmapGerado(roadmap);
-  salvarRoadmap(roadmap);
-  alert("Roadmap gerado com sucesso!");
-}
 
 // ========== Função para adicionar etapas manuais ==========
 function adicionarEtapa() {
@@ -181,3 +156,5 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("adicionarEtapaBtn").onclick = adicionarEtapa;
   document.getElementById("salvarManualBtn").onclick = salvarRoadmapManual;
 });
+
+//Novas funções 

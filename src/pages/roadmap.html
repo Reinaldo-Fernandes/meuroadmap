@@ -6,6 +6,11 @@
   <title>Meu RoadMap</title>
   <link rel="stylesheet" href="../css/roudmap.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -18,15 +23,13 @@
         </div>
       </div>
     </div>
-
     <div class="header-center">
       <div class="site-title">Meu RoadMap</div>
     </div>
-
     <div class="header-right">
       <nav>
         <a href="/index.html">Início</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="/src/pages/organograma.html">Organograma</a>
       </nav>
     </div>
   </header>
@@ -34,34 +37,62 @@
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="container">
 
-    <div class="progresso-barra">
-      <div class="preenchimento" style="width: 60%;"></div>
-    </div>
-    
-    <!-- Título principal -->
-    <h2>Criar novo Roadmap</h2>
-
-    <!-- Input de Roadmap automático -->
-    <div class="input-section">
-      <input type="text" id="roadmapInput" placeholder="Ex: Estudar Front-End" />
-      <input type="text" id="roadmapCategoria" placeholder="Categoria (ex: Estudos, Trabalho)" />
-      <button onclick="gerarRoadmap()"><i class="fas fa-magic"></i> Gerar Roadmap</button>
-    </div>
-
-    <!-- Sugestão gerada pela IA -->
-    <div id="sugestaoEtapas" class="sugestao-etapa hidden"></div>
-    
-    <!-- Área onde o roadmap gerado será exibido -->
-    <div id="roadmapArea" class="roadmap-area"></div>
-    
-    <hr style="margin: 30px 0;" />
-
-    <!-- Título para criação manual -->
+    <!--IA Ajudante-->
     <h3>Criar Roadmap Manualmente</h3>
+    <div class="ajudante-ia">
+      <i class="fas fa-robot" title="Clique para receber ajuda com seu roadmap" onclick="mostrarAjudaIA()"></i>
+    </div>
+    
+    <div id="modalAjudaIA" class="modal-ajuda hidden">
+      <div class="modal-content">
+        <span class="fechar" onclick="fecharAjudaIA()">&times;</span>
+        <h4>Assistente IA</h4>
+        <p>Aqui vão algumas sugestões para começar:</p>
+        <ul>
+          <li>🔹 Comece com uma visão geral do projeto.</li>
+          <li>🔹 Divida em fases como: pesquisa, design, desenvolvimento, testes.</li>
+          <li>🔹 Use verbos de ação nos títulos: "Definir", "Criar", "Planejar".</li>
+          <li>🔹 Dê prazos ou metas se possível.</li>
+          <li>🔹 Priorize tarefas essenciais primeiro.</li>
+        </ul>
+      </div>
+    </div>    
+
+    <!-- Seletor de Modelo -->
+    <div class="input-section">
+      <label for="templateSelect">Modelo:</label>
+      <select id="templateSelect">
+        <option value="timeline">Modelo 1: Linha do Tempo</option>
+        <option value="quarters">Modelo 2: Grid de Trimestres</option>
+        <option value="kanban" selected>Modelo 3: Kanban de Fases</option>
+        <option value="vertical">Modelo 4: Roadmap Vertical</option>
+      </select>
+    </div>
+
+    <!-- Seletor de Cores -->
+    <div class="input-section">
+      <label for="colorSelect">Escolha o Modelo de Cor:</label>
+      <div class="color-picker">
+        <div class="color-box" style="background-color: #fa7436;" onclick="mudarCor('#fa7436')"></div>
+        <div class="color-box" style="background-color: #4a90e2;" onclick="mudarCor('#4a90e2')"></div>
+        <div class="color-box" style="background-color: #e94e77;" onclick="mudarCor('#e94e77')"></div>
+        <div class="color-box" style="background-color: #7bc36d;" onclick="mudarCor('#7bc36d')"></div>
+      </div>
+    </div>
 
     <!-- Input de Etapas manuais -->
     <div class="input-section">
-      <input type="text" id="manualStep" placeholder="Digite uma etapa (ex: Wireframe)" />
+      <label for="tituloEtapa">Título da Etapa</label>
+      <input type="text" id="tituloEtapa" placeholder="Ex: Design do protótipo" />
+      <div class="campo-dica">Esse será o nome visível na sua roadmap, então seja objetivo e claro.</div>
+    </div>
+
+    <div class="input-section">
+      <label for="observacaoEtapa">Observações (opcional)</label>
+      <textarea id="observacaoEtapa" rows="3" placeholder="Adicione uma descrição ou explicação para essa etapa..."></textarea>
+    </div>
+
+    <div class="input-section">
       <button onclick="adicionarEtapa()"><i class="fas fa-plus"></i> Adicionar Etapa</button>
     </div>
 
@@ -74,6 +105,103 @@
   </main>
 
   <!-- SCRIPTS -->
-  <script type="module" src="../js/roudmap.js"></script>
+  <script>
+    const etapasManuais = [];
+    let corSelecionada = '#f4f4f4';  // Cor padrão
+
+    function adicionarEtapa() {
+      const titulo = document.getElementById('tituloEtapa').value.trim();
+      const obs = document.getElementById('observacaoEtapa').value.trim();
+      if (!titulo) return;
+
+      etapasManuais.push({ titulo, obs });
+      document.getElementById('tituloEtapa').value = '';
+      document.getElementById('observacaoEtapa').value = '';
+      renderizarListaEtapas();
+    }
+
+    function renderizarListaEtapas() {
+      const lista = document.getElementById('manualRoadmapArea');
+      lista.innerHTML = etapasManuais.map(et => `
+        <div class="etapa-item">
+          <strong>${et.titulo}</strong>
+          ${et.obs ? `<p class="obs">${et.obs}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function salvarRoadmapManual() {
+      const modelo = document.getElementById('templateSelect').value;
+      const container = document.getElementById('manualRoadmapArea');
+      container.innerHTML = '';
+      container.className = `roadmap ${modelo}`;
+
+      if (modelo === 'kanban') {
+        const colunas = ['A Fazer', 'Em Progresso', 'Concluído'];
+        colunas.forEach((coluna, i) => {
+          const colunaElement = document.createElement('div');
+          colunaElement.classList.add('column');
+          colunaElement.setAttribute('ondrop', 'drop(event)');
+          colunaElement.setAttribute('ondragover', 'allowDrop(event)');
+          colunaElement.innerHTML = `<h4>${coluna}</h4>`;
+          container.appendChild(colunaElement);
+        });
+
+        const cols = container.querySelectorAll('.column');
+        etapasManuais.forEach((et, i) => {
+          const task = document.createElement('div');
+          task.classList.add('task');
+          task.setAttribute('draggable', 'true');
+          task.setAttribute('ondragstart', 'drag(event)');
+          task.setAttribute('data-index', i);
+          task.innerHTML = `
+            <strong>${et.titulo}</strong>
+            ${et.obs ? `<div class="obs">${et.obs}</div>` : ''}
+          `;
+          task.style.backgroundColor = corSelecionada;
+          cols[i % cols.length].appendChild(task);
+        });
+      }
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.outerHTML);
+      ev.dataTransfer.setData("index", ev.target.getAttribute('data-index'));
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const index = ev.dataTransfer.getData("index");
+
+      const task = document.querySelector(`.task[data-index='${index}']`);
+      task.parentNode.removeChild(task);
+
+      const droppedElement = document.createElement('div');
+      droppedElement.innerHTML = data;
+      const taskElement = droppedElement.firstChild;
+      taskElement.setAttribute('data-index', index);
+      ev.target.appendChild(taskElement);
+    }
+
+    function mudarCor(cor) {
+      corSelecionada = cor;
+    }
+
+    // ✅ Funções para mostrar e esconder o modal de ajuda
+    function mostrarAjudaIA() {
+      const modal = document.getElementById('modalAjudaIA');
+      modal.classList.remove('hidden');
+    }
+
+    function fecharAjudaIA() {
+      const modal = document.getElementById('modalAjudaIA');
+      modal.classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
